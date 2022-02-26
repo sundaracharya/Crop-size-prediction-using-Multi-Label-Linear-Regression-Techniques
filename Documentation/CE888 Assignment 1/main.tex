@@ -1,0 +1,96 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+
+% Set page size and margins
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\title{Crop size prediction using Multi-Label Linear Regression Techniques}
+
+
+\begin{document}
+\maketitle
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ll}
+        Registration number: & \textcolor{red}{2100366}\\
+        Project: & \textcolor{red}{Agrotech}\\
+        Link to GitHub: & \url{https://github.com/sundaracharya/Crop-size-prediction-using-Multi-Label-Linear-Regression-Techniques}\\
+    \end{tabular}
+\end{table}
+
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lc}
+        Executive summary (max.\ 250 words) & \textcolor{red}{186}\\
+        Introduction (max.\ 600 words) & \textcolor{red}{300}\\
+        Data (max.\ 500 words/dataset) & \textcolor{red}{476}\\
+        Methodology (max.\ 600 words) & \textcolor{red}{264}\\
+        Conclusions (max.\ 500 words) & \textcolor{red}{67}\\
+        \hline
+        Total word count & \textcolor{red}{1293}\\
+    \end{tabular}
+    %\caption{Word counts for each section.}
+\end{table}
+
+\tableofcontents
+
+\clearpage
+
+
+
+\begin{abstract}
+Forecasting crop yields based on numerous characteristics utilizing artificial intelligence, and data mining has been a prospective study topic to close the gap between demand and supply. Numerous machine learning algorithms have been employed to predict crop yields. The project aims to perform Machine Learning algorithms including multi-label linear regression for crop size prediction, such that the crop amount to sell can be presented to supermarkets. Future crop size is highly influenced by crop factors as well as the surrounding environment. In this study, an AgroTech data set was used for crop size prediction. The areas focused were the prediction of head weight, polar diameter, and radial diameter of the lettuce. It offers a collection of historical data-sets of crop data on plant sheets, flight data sheet for drone-captured capture, planting, and daily weather information sheets. The development of multi-target linear regression in the agricultural field is the subject of this research. For crop size prediction, some regression approaches such as polynomials and lasso are applied. The finest model is selected according to the values of Root Mean Squared Error (RMSE), R square, and the MAE metrics.
+
+Key words: Yield, Regression, polynomial, polynomial
+\end{abstract}
+
+
+\section{Introduction}
+Crop yield and size prediction is one of the most important as well as challenging tasks in agriculture. The world's population will be growing rapidly resulting in exposing of food producers to new economic and political challenges resulting in shortage of food in supermarkets \cite{britain2011government}. Early estimation of crop yield can balance the problem of demand and supply chain sustainability. The environment, soil, and crop characteristics all play a vital role in crop yield prediction.
+
+Farmers have traditionally relied on previous crops production and weather data to create sceptical crop yield predictions. The usage of electronic devices and data transmission, IoT, has ushered in the birth of smart farming \cite{PIVOTO201821}. Precision agriculture is being practised by modern Agro-Industries, while different Machine Learning (ML), Deep Learning (DL), and data mining methods are being introduced for improved crop yields. ML is delivering the cutting edge to solve the ongoing issues in agricultural sustainability \cite{9311735}. This brings the farmer more efficient way of getting knowledge on crop yield prediction, factors co-related to the crop production, as a result providing more specific data to the supermarket about their estimated crops yield. 
+
+Machine learning models have been successfully used for crop yield prediction, including Multiple Linear Regression \cite{ramesh2015analysis}, Artificial Neural Networks \cite{dahikar2014agricultural}, Convolutional Neural Network \cite{nevavuori2019crop}. As reported by research \cite{shastry2017prediction}, model with a lower Root Mean Square, percentage prediction error, and greater R square statistical metrics is the best for crop yield prediction. Different methods for multiple-output or multi-variate linear regression like direct multi output regression, chain multi output regression, wrapper multioutput algorithms were introduced in various research paper. These models showed the higher efficiency if targets are considered separately but may not be feasible because of their dependencies among targets. In this paper, multi-label linear regressor for simultaneous labels prediction is proposed.
+
+
+\section{Data}
+\subsection{Data Collection}
+A collection of agricultural data sets is used which contains plants specific data set, flight dates data set, planting data set, and weather data set. For data cleaning the baseline approach and mean/median imputation methods were carried out where the column has null value. The detail information of data set cleaning process is presented below:
+\subsubsection{Planting data set}
+The planting data is measured manually as well as using drone.The data set contains composed of 2373 rows and 10 features. The features like Column1, Column2, etc. with all the null values are dropped. Additionally, the rows with null values are also dropped.
+\subsubsection{Flight  data set}
+It is the date in which the measurements of the lettuce were taken from the drone. Flight data set contains the information of Batch Number and Flight. The flight contains 50 rows. Features with all the null values, if any, are dropped. The rows with null values were also dropped.
+\subsubsection{Weather data set}
+The weather data set consists of 14 variables, with 2556 rows of data. The features selection process is be carried out by making the correlation with the output variables. Median weather values at different time is carried out to scale up the different time frame weather information.
+\subsubsection{Plants data set}
+The plants data set is composed of 4859 rows with multiple features and labels. It contains various crop characteristics. The columns of the data set are changed to be comfortably used during the process. Using the key Batch Number, the null values in plant date is imputed with the corresponding value of 'Planting Batch' from the planting data set, Flight Date is imputed from the flight data set. Crop, Region, Volume Planted, and Planting week features are appended to the newly created duplicate plant data set, which is going to be the base data set for this project. A new feature ‘Days to Check’ is added to get the days from plant date to flight date. The rows that are not null in the {R}emove column were dropped.
+\subsection{Data Pre-Processing}
+The cleaned data set is processed using various steps. Initially, the features Density (kg/L), Leaf Area (cm2), Fresh Weight (g), and days to check with null values are imputed with mean. The presence of outliers is checked in the data set and bootstrapping techniques is carried out. Also, the presented multicollinear variables are dropped from the data set. The model will be implemented with Synthetic Minority Over-Sampling Techniques for Regression (SMOTER)to deal with imbalance data set. 
+\begin{figure}[tb]
+\centering
+\includegraphics[width=1.2\textwidth]{fulldataset.png}
+\caption{\label{fig:fulldataset}Autocorrelation between variables.}
+\end{figure}
+Correlation is evaluated by creating heat map of all the features of the data set\cite{lavanya2020multiple}.The features like Square ID, Volume Planted, etc. which shows insignificant correlation with the labels are dropped. The weather data is appended with the plants data set and subjected for auto-correlation calculation. A subset of all explanatory variables is selected to avoid over-fitting during the prediction of crop sizes. Elastic net regularization and Ridge regression are proposed as a first step for feature selection process.
+
+\section{Methodology}
+Various machine learning and statistical algorithms, regressions, are being used for the prediction of crop yield. The system will be developed to predict multiple outputs (head weight, polar diameter, and radial diameter) at the same time using multi-variant linear regression. The estimation of lettuce components yield analysis can be provided by the statistical method known as Multi-Label/Multivariate Linear Regression methodology taking into consideration the relationship of dependent variables and the 3 independent variables. It is the process of forecasting more than one numeric variables simultaneously. Prediction of \^y from R square,where n is the number of targets in an input space, is carried out. This paper proposes the implementation of Multi-variate linear regression with co-variance estimation. It provides better approach to predict multiple output variables at the same time with higher accuracy. The presented variables are examined to determine whether the variables may be used to predict a specific outcome. Multi-variant linear regression learns by assuming full noise along with the output structure and the weight matrix(W). Rather than providing the multiple output sequentially, the model provides the required three parameters simultaneously.
+Once the pre-processing is completed, data normalization phase is carried out using min-max scalar. The data set is split into train, validation, and test split with 80 percentage,10 percentage, and 10 percentage respectively. It will be processed with K-fold validation for more efficient model creation. Mean Squared Error (MSE), Root Mean Square Error, and Mean Absolute Error matrices will be used to evaluate the model. The model will be optimized till it results in lowest MSE, R square, and MAE.
+
+
+\section{Conclusions}
+In this way, the system will be implemented using multi-label linear regressor to predict the head weight, polar diameter, and radial diameter of lettuce. The system will be evaluated by changing number of training examples and comparision will be carried out. The system checks the covariance to determine the movement of different variables. If soil and disease information were added to the dataset, the system would outperform.
+\bibliographystyle{abbrv}
+\bibliography{sample}
+
+\end{document}
